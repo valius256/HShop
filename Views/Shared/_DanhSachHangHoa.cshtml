@@ -15,12 +15,7 @@
                 <div class="row g-4">
                     <div class="col-xl-3">
                         <div class="input-group w-100 mx-auto d-flex">
-                            <form asp-controller="HangHoa" asp-action="Search">
-                                <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" name="query">
-                            <button>    
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                            </button>
-                            </form>
+                            @await Html.PartialAsync("_TimKiemPanel")
                         </div>
                     </div>
                     <div class="col-6"></div>

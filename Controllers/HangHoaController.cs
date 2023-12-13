@@ -1,6 +1,7 @@
 ﻿using HShop.Data;
 using HShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HShop.Controllers
 {
@@ -53,17 +54,27 @@ namespace HShop.Controllers
 
         public IActionResult Detail(int Id)
         {
-            var data = db.HangHoas.SingleOrDefault(p => p.MaHh == Id);
-            if (data != null)
-            {
-
-            }
-            else
+            var data = db.HangHoas
+                .Include(p => p.MaLoaiNavigation)
+                .SingleOrDefault(p => p.MaHh == Id);
+            if (data == null)
             {
                 TempData["Message"] = $"Not Found product have Id: {Id}";
                 return Redirect("/404");
             }
-            return View();
+            var result = new ChiTietHangHoaVM
+            {
+                MaHH = data.MaHh,
+                TenHH = data.TenHh,
+                DonGia = data.DonGia ?? 0,
+                Hinh = data.Hinh ?? "",
+                ChiTiet = data.MoTa ?? string.Empty,
+                TenLoai = data.MaLoaiNavigation.TenLoai,
+                MoTaNgan = data.MoTaDonVi ?? string.Empty,
+                SoLuongTon = 10,
+                DiemDanhGia = 5,
+            };
+            return View(result);
         }
     }
 }
