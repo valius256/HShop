@@ -1,6 +1,7 @@
 using HShop.Data;
+using HShop.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-
 namespace HShop
 {
     public class Program
@@ -24,7 +25,13 @@ namespace HShop
                 options.Cookie.IsEssential = true;
             });
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/KhachHang/DangNhap";
+                options.AccessDeniedPath = "/AccessDenied";
+            });
 
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
             var app = builder.Build();
 
@@ -42,6 +49,7 @@ namespace HShop
             app.UseRouting();
 
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

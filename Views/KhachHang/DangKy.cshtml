@@ -8,7 +8,7 @@
 <div class="container-fluid py-5">
     <div class="container py-5">
         <h1 class="mb-4">Đăng Ký Thành Viên</h1>
-        <form asp-action="DangKy">
+        <form asp-action="DangKy" enctype="multipart/form-data"> @* de truyền file hình *@
             <div class="row">
                 <div class="row">
                     <div class="col-md-12 col-lg-6">
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="form-item">
-                        <label asp-for="@Model.Phone" class="form-label my-3"></label><sup>*</sup>
+                        <label asp-for="@Model.Phone" class="form-label my-3"></label>
                         <input asp-for="@Model.Phone" type="text" class="form-control">
                         <span asp-validation-for="@Model.Phone " class="text-danger"></span>
                     </div>
@@ -63,6 +63,10 @@
                     <div class="form-item">
                         <label for="Hinh" class="form-label my-3">Hình </label>
                         <input type="file" name="Hinh" class="form-control">
+                    </div>
+
+                    <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                        <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Đăng Ký</button>
                     </div>
                 </div>
             </div>

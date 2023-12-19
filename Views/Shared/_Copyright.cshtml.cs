@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HShop.Views.Shared
 {
-    public class _TimKiemPanelModel : PageModel
+    public class _CopyrightModel : PageModel
     {
         public void OnGet()
         {

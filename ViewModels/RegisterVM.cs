@@ -25,18 +25,18 @@ namespace HShop.ViewModels
         [DataType(DataType.Date)]
         public DateTime? NgaySinh { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Địa Chỉ is Required")]
         [Display(Name = "Địa Chỉ")]
         [MaxLength(60, ErrorMessage = "Toi Da 60 ki tu")]
         public string DiaChi { get; set; }
 
         [Display(Name = "Điện Thoại")]
         [MaxLength(24, ErrorMessage = "Toi Da 24 ki tu")]
-        [Phone(ErrorMessage = "Chưa Đúng Định Dạng Số Điện Thoại")]
+        [RegularExpression(@"0[98765]\d{8}", ErrorMessage = "Chưa Đúng Định Dạng Số Điện Thoại")]
         public string? Phone { get; set; }
 
 
-
+        [Required(ErrorMessage = "Email is Required")]
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage = "Chưa Đúng Định Dạng Email")]
         public string Email { get; set; }

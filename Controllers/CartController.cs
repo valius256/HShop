@@ -1,6 +1,7 @@
 ﻿using HShop.Data;
 using HShop.Helpers;
 using HShop.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -52,6 +53,7 @@ namespace HShop.Controllers
             return RedirectToAction("Index");
         }
 
+
         public IActionResult RemoveCart(int id)
         {
             var gioHang = Cart;
@@ -62,6 +64,16 @@ namespace HShop.Controllers
                 HttpContext.Session.Set(MySettings.Cart_Key, gioHang);
             }
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Checkout()
+        {
+            if (Cart.Count == 0)
+            {
+                return Redirect("/");
+            }
+            return View(Cart);
         }
     }
 }
