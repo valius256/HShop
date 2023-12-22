@@ -1,5 +1,6 @@
-using HShop.Data;
+﻿using HShop.Data;
 using HShop.Helpers;
+using HShop.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 namespace HShop
@@ -32,6 +33,13 @@ namespace HShop
             });
 
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            // đăng ký PayPal dạng Singleton() // chỉ có 1 instance trong toàn ứng dụng
+            builder.Services.AddSingleton(x => new PaypalClient(
+                    builder.Configuration["PayPalOptions:AppId"],
+                    builder.Configuration["PayPalOptions:AppSecret"],
+                    builder.Configuration["PayPalOptions:Mode"]
+                ));
 
             var app = builder.Build();
 
