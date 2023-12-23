@@ -188,7 +188,17 @@ namespace HShop.Controllers
                 return BadRequest(error); ;
             }
 
+
             return View();
+
+        }
+        #endregion
+
+        #region PaymentSuccess Page
+        [Authorize]
+        public IActionResult PaymentSuccess()
+        {
+            return View("Success");
         }
         #endregion
     }

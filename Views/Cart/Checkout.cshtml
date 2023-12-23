@@ -195,50 +195,30 @@
                 disableMaxWidth: true
             },
 
-            createOrder() {
-                // this function sets up the details of the transaction, including the amount and line item details.
-                return fetch("/cart/create-paypal-order", {
+            createOrder: (data, actions) => {
+                return fetch("/Cart/create-paypal-order", {
                     method: "post",
-                    headers: {
-                        "content-type": "application/json",
-                    }
                 }).then((response) => {
                     if (!response.ok) {
-                        return response.json().then((err) => {
-                            throw err;
-                        });
+                        return response.json().then(error => { throw error; });
                     }
                     return response.json();
-                })
-                    .then((order) => order.id)
-                    .catch(err => {
-                        alert(err.message);
-                    });
+                }).then((order) => order.id)
+                    .catch(error => alert(error.message));
             },
 
-            onApprove(data) {
-                // This function captures the funds from the transaction.
+            onApprove: (data, actions) => {
                 return fetch(`/Cart/capture-paypal-order?orderId=${data.orderID}`, {
                     method: "post",
                 }).then((response) => {
-                        if (!response.ok) {
-                            return response.json().then((err) => {
-                                throw err;
-                            });
-                        }
-                        response.json();
-                    }) 
-                    .then((details) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
 
-                        // This function shows a transaction success message to your buyer.
-                        alert('Transaction completed by ' + details.payer.name.given_name);
-                        window.location.href = "/Cart/Success";
-                    })
-                    .catch(err => {
-                        alert(err.message);
-                    });
+                    //Đổi địa chỉ tới action thông báo thành công
+                    window.location.href = "/Cart/PaymentSuccess";
+                }).catch(error => alert(error.message));
             }
-
         }).render('#paypal-button-container');
     </script>
 }
